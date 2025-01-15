@@ -4,6 +4,8 @@ import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
 import DefaultLayout from './layout/DefaultLayout';
+import AddBrand from './pages/Admin/Brand/AddBrand';
+import AddCategory from './pages/Admin/Category/AddCategory';
 import Dashboard from './pages/Admin/Dashboard';
 import AddProductPage from './pages/Admin/Product/AddProduct';
 import SignIn from './pages/Authentication/SignIn';
@@ -39,7 +41,7 @@ function App() {
           index
           element={
             <>
-              <PageTitle title="eCommerce Dashboard | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="eCommerce Dashboard" />
               <Dashboard />
             </>
           }
@@ -50,7 +52,7 @@ function App() {
           path="/products/add"
           element={
             <>
-              <PageTitle title="ADD" />
+              <PageTitle title="eCommerce Dashboard | Add Product" />
               <AddProductPage />
             </>
           }
@@ -59,7 +61,7 @@ function App() {
           path="/products/all"
           element={
             <>
-              <PageTitle title="ALL" />
+              <PageTitle title="eCommerce Dashboard | All Products" />
               <Calendar />
             </>
           }
@@ -68,8 +70,8 @@ function App() {
           path="/brands/add"
           element={
             <>
-              <PageTitle title="ADD" />
-              <Profile />
+              <PageTitle title="eCommerce Dashboard | Add Brand" />
+              <AddBrand />
             </>
           }
         />
@@ -77,7 +79,7 @@ function App() {
           path="/brands/all"
           element={
             <>
-              <PageTitle title="ALL" />
+              <PageTitle title="eCommerce Dashboard | All Brands" />
               <Profile />
             </>
           }
@@ -86,8 +88,8 @@ function App() {
           path="/categories/add"
           element={
             <>
-              <PageTitle title="ADD" />
-              <Tables />
+              <PageTitle title="eCommerce Dashboard | Add Category" />
+              <AddCategory />
             </>
           }
         />
@@ -95,7 +97,7 @@ function App() {
           path="/categories/all"
           element={
             <>
-              <PageTitle title="ALL" />
+              <PageTitle title="eCommerce Dashboard | All Categories" />
               <Tables />
             </>
           }
