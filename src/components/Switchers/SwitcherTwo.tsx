@@ -4,10 +4,10 @@ const SwitcherTwo = () => {
   const [enabled, setEnabled] = useState(false);
 
   return (
-    <div x-data="{ switcherToggle: false }">
+    <div x-data="{ switcherToggle: false }" >
       <label
         htmlFor="toggle2"
-        className="flex cursor-pointer select-none items-center"
+        className="flex cursor-pointer select-none items-center w-min"
       >
         <div className="relative">
           <input
@@ -20,9 +20,8 @@ const SwitcherTwo = () => {
           />
           <div className="h-5 w-14 rounded-full bg-meta-9 shadow-inner dark:bg-[#5A616B]"></div>
           <div
-            className={`dot absolute left-0 -top-1 h-7 w-7 rounded-full bg-white shadow-switch-1 transition ${
-              enabled && '!right-0 !translate-x-full !bg-primary dark:!bg-white'
-            }`}
+            className={`dot absolute left-0 -top-1 h-7 w-7 rounded-full bg-gray-400 shadow-switch-1 transition ${enabled && '!right-0 !translate-x-full !bg-primary dark:!bg-white'
+              }`}
           ></div>
         </div>
       </label>

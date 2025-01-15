@@ -1,5 +1,6 @@
 import Breadcrumb from "../../../components/Breadcrumbs/Breadcrumb"
 import SelectGroupOne from "../../../components/Forms/SelectGroup/SelectGroupOne"
+import SwitcherTwo from "../../../components/Switchers/SwitcherTwo"
 
 const AddProductPage = () => {
     return (
@@ -13,7 +14,7 @@ const AddProductPage = () => {
                                 Product Form
                             </h3>
                         </div>
-                        <form action="#">
+                        <form action="">
                             <div className="p-6.5">
                                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
                                     <div className="w-full xl:w-1/2">
@@ -61,12 +62,15 @@ const AddProductPage = () => {
                                         />
                                     </div>
                                 </div>
-                                <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
+                                <div className=" flex flex-col gap-6 xl:flex-row">
                                     <SelectGroupOne labelText="Brand" hintText="Select Brand" />
                                     <SelectGroupOne labelText="Category" hintText="Select Category" />
                                 </div>
-
-                                <div className="mb-6">
+                                <label className="mb-2.5 block text-black dark:text-white">
+                                    Featured
+                                </label>
+                                <SwitcherTwo />
+                                <div className="mb-6 mt-4.5">
                                     <label className="mb-2.5 block text-black dark:text-white">
                                         Description
                                     </label>
@@ -83,8 +87,8 @@ const AddProductPage = () => {
                             </div>
                         </form>
                     </div>
-                </div>
-            </div>
+                </div >
+            </div >
         </>
     )
 }
