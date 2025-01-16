@@ -7,8 +7,10 @@ import DefaultLayout from './layout/DefaultLayout';
 import AddBrand from './pages/Admin/Brand/AddBrand';
 import ViewBrands from './pages/Admin/Brand/ViewBrands';
 import AddCategory from './pages/Admin/Category/AddCategory';
+import ViewCategory from './pages/Admin/Category/ViewCategory';
 import Dashboard from './pages/Admin/Dashboard';
 import AddProductPage from './pages/Admin/Product/AddProduct';
+import ViewProducts from './pages/Admin/Product/ViewProducts';
 import SignIn from './pages/Authentication/SignIn';
 import SignUp from './pages/Authentication/SignUp';
 import Calendar from './pages/Calendar';
@@ -65,7 +67,7 @@ function App() {
           element={
             <>
               <PageTitle title="eCommerce Dashboard | All Products" />
-              <Calendar />
+              <ViewProducts />
             </>
           }
         />
@@ -101,7 +103,7 @@ function App() {
           element={
             <>
               <PageTitle title="eCommerce Dashboard | All Categories" />
-              <Tables />
+              <ViewCategory />
             </>
           }
         />

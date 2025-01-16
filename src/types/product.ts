@@ -1,4 +1,4 @@
-export type Product = {
+export type PRODUCT = {
   image: string;
   name: string;
   category: string;
@@ -6,3 +6,17 @@ export type Product = {
   sold: number;
   profit: number;
 };
+
+
+export type Product = {
+  _id: string;
+  name: string;
+  category: string;
+  brand: string,
+  price: number;
+  offerPrice: number | null;
+  description: string | null;
+  isFeatured: boolean,
+  stock: number;
+  image: string;
+}

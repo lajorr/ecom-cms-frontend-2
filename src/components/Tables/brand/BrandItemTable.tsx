@@ -1,11 +1,11 @@
-import { Brand } from "../../types/brand"
+import { Brand } from "../../../types/brand"
 
-type ItemTableProps = {
+type BrandItemTableProps = {
     columnList: string[],
     itemData: Brand[]
 }
 
-const ItemTable = ({ columnList, itemData }: ItemTableProps) => {
+const BrandItemTable = ({ columnList, itemData }: BrandItemTableProps) => {
     return (
         <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
             <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">
@@ -36,6 +36,7 @@ const ItemTable = ({ columnList, itemData }: ItemTableProps) => {
                                 {/* <img src={brand._id} alt="Brand" /> */}
                                 <p>{brand._id}</p>
                             </div>
+
                         </div>
                         <div className="flex items-center p-2.5 xl:p-5">
                             <p className="hidden text-black dark:text-white sm:block">
@@ -49,4 +50,4 @@ const ItemTable = ({ columnList, itemData }: ItemTableProps) => {
     )
 }
 
-export default ItemTable
+export default BrandItemTable
