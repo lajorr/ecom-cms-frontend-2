@@ -1,13 +1,19 @@
+import { useEffect } from "react"
 import Breadcrumb from "../../../components/Breadcrumbs/Breadcrumb"
-import BrandItemTable from "../../../components/Tables/brand/BrandItemTable"
+import BrandItemTable from "../../../components/Tables/admin/BrandItemTable"
+import { useBrandContext } from "../../../provider/BrandProvider"
 import { Brand } from "../../../types/brand"
 
 const ViewBrands = () => {
 
-    const brandList: Brand[] = [
-        { _id: '1', name: 'Google' },
-        { _id: '2', name: 'Apple' },
-    ]
+    const brandCtx = useBrandContext();
+    useEffect(() => {
+        brandCtx.fetchBrands();
+    }, [])
+
+
+    const brandList: Brand[] = brandCtx.allBrands;
+    console.log(brandList);
 
 
     return (

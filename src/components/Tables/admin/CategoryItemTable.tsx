@@ -1,4 +1,4 @@
-import { Category } from "../../types/category"
+import { Category } from "../../../types/category"
 
 type CategoryItemTableProps = {
     columnList: string[],

@@ -1,5 +1,5 @@
 import Breadcrumb from "../../../components/Breadcrumbs/Breadcrumb"
-import ProductItemTable from "../../../components/Tables/ProductItemTable"
+import ProductItemTable from "../../../components/Tables/admin/ProductItemTable"
 import { Product } from "../../../types/product"
 
 const ViewProducts = () => {

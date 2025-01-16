@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { fetchAllBrands } from "../services/brand";
 import { Brand } from "../types/brand";
 
@@ -11,7 +11,7 @@ type BrandState = {
 const brandContext = createContext<BrandState | undefined>(undefined);
 
 
-export const CartProvider = ({ children }: { children: React.ReactNode }) => {
+export const BrandProvider = ({ children }: { children: React.ReactNode }) => {
     const [allBrands, setAllBrands] = useState<Brand[]>([]);
     const getAllBrands = async () => {
         const allBrands = await fetchAllBrands();
@@ -22,4 +22,12 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
             {children}
         </brandContext.Provider>
     )
+}
+
+export const useBrandContext = () => {
+    const context = useContext(brandContext);
+    if (!context) {
+        throw new Error('useBrandContext must be used within a BrandProvider');
+    }
+    return context;
 }

@@ -1,5 +1,5 @@
 import Breadcrumb from "../../../components/Breadcrumbs/Breadcrumb"
-import CategoryItemTable from "../../../components/Tables/CategoryItemTable"
+import CategoryItemTable from "../../../components/Tables/admin/CategoryItemTable"
 import { Category } from "../../../types/category"
 
 const ViewCategory = () => {
