@@ -5,6 +5,7 @@ import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
 import DefaultLayout from './layout/DefaultLayout';
 import AddBrand from './pages/Admin/Brand/AddBrand';
+import ViewBrands from './pages/Admin/Brand/ViewBrands';
 import AddCategory from './pages/Admin/Category/AddCategory';
 import Dashboard from './pages/Admin/Dashboard';
 import AddProductPage from './pages/Admin/Product/AddProduct';
@@ -31,6 +32,8 @@ function App() {
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
   }, []);
+
+
 
   return loading ? (
     <Loader />
@@ -80,7 +83,7 @@ function App() {
           element={
             <>
               <PageTitle title="eCommerce Dashboard | All Brands" />
-              <Profile />
+              <ViewBrands />
             </>
           }
         />
