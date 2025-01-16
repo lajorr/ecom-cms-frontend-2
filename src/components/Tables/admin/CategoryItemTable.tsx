@@ -33,14 +33,14 @@ const CategoryItemTable = ({ columnList, itemData }: CategoryItemTableProps) => 
                         key={key}
                     >
                         <div className="flex items-center gap-3 p-2.5 xl:p-5">
-                            <div className="flex-shrink-0">
+                            <div className="flex">
                                 {/* <img src={cat._id} alt="cat" /> */}
-                                <p>{cat._id}</p>
+                                <p className="break-all" >{cat._id}</p>
                             </div>
 
                         </div>
                         <div className="flex items-center p-2.5 xl:p-5">
-                            <p className="hidden text-black dark:text-white sm:block">
+                            <p className="text-black dark:text-white sm:block">
                                 {cat.name}
                             </p>
                         </div>

@@ -16,6 +16,7 @@ const ViewBrands = () => {
     console.log(brandList);
 
 
+
     return (
         <>
             <Breadcrumb pageName="All Brands" />

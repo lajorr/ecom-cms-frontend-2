@@ -32,14 +32,14 @@ const BrandItemTable = ({ columnList, itemData }: BrandItemTableProps) => {
                         key={key}
                     >
                         <div className="flex items-center gap-3 p-2.5 xl:p-5">
-                            <div className="flex-shrink-0">
+                            <div className="flex items-center">
                                 {/* <img src={brand._id} alt="Brand" /> */}
-                                <p>{brand._id}</p>
+                                <p className="text-black w-full dark:text-white break-all" >{brand._id}</p>
                             </div>
 
                         </div>
                         <div className="flex items-center p-2.5 xl:p-5">
-                            <p className="hidden text-black dark:text-white sm:block">
+                            <p className=" text-black dark:text-white sm:block">
                                 {brand.name}
                             </p>
                         </div>

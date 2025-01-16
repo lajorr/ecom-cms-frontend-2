@@ -1,12 +1,19 @@
+import { useEffect } from "react"
 import Breadcrumb from "../../../components/Breadcrumbs/Breadcrumb"
 import CategoryItemTable from "../../../components/Tables/admin/CategoryItemTable"
+import { useCategoryContext } from "../../../provider/CategoryProvider"
 import { Category } from "../../../types/category"
 
 const ViewCategory = () => {
-    const categoryList: Category[] = [
-        { _id: '1', name: 'Sports' },
-        { _id: '2', name: 'Audio' },
-    ]
+
+    const catCtx = useCategoryContext();
+
+    useEffect(() => {
+        catCtx.fetchCategories();
+    }, [])
+
+    const categoryList: Category[] = catCtx.categories;
+    console.log(categoryList)
 
 
     return (
