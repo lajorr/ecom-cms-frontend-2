@@ -1,6 +1,19 @@
-import Breadcrumb from "../../../components/Breadcrumbs/Breadcrumb"
+import Breadcrumb from "../../../components/Breadcrumbs/Breadcrumb";
+import { useCategoryContext } from "../../../provider/CategoryProvider";
 
 const AddCategory = () => {
+
+    const catCtx = useCategoryContext();
+
+    const handleOnCategorySubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const form = e.currentTarget
+        const formData = new FormData(form);
+        const catName = formData.get('catName') as string;
+        const result = await catCtx.addCategory({ name: catName });
+        form.reset()
+        alert(result)
+    }
     return (
         <>
             <Breadcrumb pageName="Add Category" />
@@ -12,13 +25,14 @@ const AddCategory = () => {
                                 Category Form
                             </h3>
                         </div>
-                        <form action="">
+                        <form onSubmit={handleOnCategorySubmit}>
                             <div className="p-6.5">
                                 <label className="mb-2.5 block text-black dark:text-white">
                                     Name <span className="text-meta-1">*</span>
                                 </label>
                                 <input
                                     type="text"
+                                    name="catName"
                                     placeholder="Enter category name"
                                     className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                                 />

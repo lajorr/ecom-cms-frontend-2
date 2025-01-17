@@ -1,11 +1,12 @@
 import { createContext, useContext, useState } from "react";
-import { fetchAllCategories } from "../services/category";
+import { addCategory, fetchAllCategories } from "../services/category";
 import { Category } from "../types/category";
 
 
 type CategoryState = {
     categories: Category[]
     fetchCategories: () => void
+    addCategory: (cat: Omit<Category, '_id'>) => Promise<string>
 }
 
 
@@ -19,9 +20,18 @@ export const CategoryProvider = ({ children }: { children: React.ReactNode }) =>
         const categories = await fetchAllCategories();
         setCategories(categories);
     }
+    const addNewCategory = async (cat: Omit<Category, '_id'>) => {
+        const result = await addCategory(cat);
+        await getAllCategories()
+        return result.msg;
+    }
 
     return (
-        <CategoryContext.Provider value={{ categories, fetchCategories: getAllCategories }}>
+        <CategoryContext.Provider value={{
+            categories,
+            fetchCategories: getAllCategories,
+            addCategory: addNewCategory
+        }}>
             {children}
         </CategoryContext.Provider >
     )

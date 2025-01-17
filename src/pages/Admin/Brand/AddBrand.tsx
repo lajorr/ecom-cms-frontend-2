@@ -1,6 +1,20 @@
-import Breadcrumb from "../../../components/Breadcrumbs/Breadcrumb"
+import Breadcrumb from "../../../components/Breadcrumbs/Breadcrumb";
+import { useBrandContext } from "../../../provider/BrandProvider";
 
 const AddBrand = () => {
+
+    const brandCtx = useBrandContext();
+
+    const handleOnBrandSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const form = e.currentTarget
+        const formData = new FormData(form);
+        const brandName = formData.get('brandName') as string;
+        const result = await brandCtx.addBrand({ name: brandName });
+        form.reset()
+        alert(result)
+    }
+
     return (
         <>
             <Breadcrumb pageName="Add Brand" />
@@ -11,7 +25,7 @@ const AddBrand = () => {
                             Brand Form
                         </h3>
                     </div>
-                    <form action="">
+                    <form onSubmit={handleOnBrandSubmit}>
                         <div className="p-6.5">
                             <label className="mb-2.5 block text-black dark:text-white">
                                 Name <span className="text-meta-1">*</span>
@@ -19,6 +33,7 @@ const AddBrand = () => {
                             <input
                                 type="text"
                                 placeholder="Enter brand name"
+                                name="brandName"
                                 className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                             />
                             <button className="mt-6 flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
