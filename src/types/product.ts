@@ -16,8 +16,8 @@ export type ProductResponse = {
   name: string;
   category: string;
   brand: string,
-  price: number;
-  offer_price: number | null;
+  price: string;
+  offer_price: string | null;
   description: string | null;
   is_featured: boolean,
   stock: number;

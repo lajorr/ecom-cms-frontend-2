@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { Brand } from '../../../types/brand';
+import { Category } from '../../../types/category';
 
 
 type SelectGroupOneProps = {
   labelText?: string;
   hintText?: string;
+  fieldName?: string;
+  options: Brand[] | Category[]
 }
 
-const SelectGroupOne: React.FC<SelectGroupOneProps> = ({ labelText, hintText }) => {
-  const [selectedOption, setSelectedOption] = useState<string>('');
+const SelectGroupOne = ({ labelText, hintText, fieldName, options }: SelectGroupOneProps) => {
   const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
 
   const changeTextColor = () => {
@@ -22,26 +25,29 @@ const SelectGroupOne: React.FC<SelectGroupOneProps> = ({ labelText, hintText }) 
 
       <div className="relative z-20 bg-transparent dark:bg-form-input">
         <select
-          value={selectedOption}
-          onChange={(e) => {
-            setSelectedOption(e.target.value);
-            changeTextColor();
-          }}
+          name={fieldName}
+          // value={selectedOption}
+          defaultValue=""
+          required
+          onChange={changeTextColor}
           className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary ${isOptionSelected ? 'text-black dark:text-white' : ''
             }`}
         >
           <option value="" disabled className="text-body dark:text-bodydark">
             {hintText ?? "Select Subject"}
           </option>
-          <option value="USA" className="text-body dark:text-bodydark">
-            USA
-          </option>
-          <option value="UK" className="text-body dark:text-bodydark">
+          {options.map((option) => (
+
+            <option key={option._id} value={option._id} className="text-body dark:text-bodydark">
+              {option.name}
+            </option>
+          ))}
+          {/* <option value="UK" className="text-body dark:text-bodydark">
             UK
           </option>
           <option value="Canada" className="text-body dark:text-bodydark">
             Canada
-          </option>
+          </option> */}
         </select>
 
         <span className="absolute top-1/2 right-4 z-30 -translate-y-1/2">

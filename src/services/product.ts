@@ -6,7 +6,7 @@ export const fetchAllProducts = async () => {
     const response = await api().get<ProductResponse[]>('products')
     return response.data;
 }
-export const addProduct = async (data: Omit<Product, '_id'>) => {
+export const addProduct = async (data: Omit<ProductResponse, '_id'>) => {
     const response = await api().post('products', data)
     return response.data;
 }

@@ -1,12 +1,13 @@
 import { createContext, useContext, useState } from "react";
 import { getBrandById } from "../services/brand";
 import { getCategoryById } from "../services/category";
-import { fetchAllProducts } from "../services/product";
-import { Product } from "../types/product";
+import { addProduct, fetchAllProducts } from "../services/product";
+import { Product, ProductResponse } from "../types/product";
 
 type ProductState = {
     products: Product[]
     fetchProducts: () => void
+    addNewProduct: (data: Omit<ProductResponse, '_id'>) => Promise<string>
 }
 
 const ProductContext = createContext<ProductState | undefined>(undefined);
@@ -31,8 +32,18 @@ export const ProductProvider = ({ children }: { children: React.ReactNode }) => 
         setProducts(products);
     };
 
+    const addNewProduct = async (product: Omit<ProductResponse, '_id'>) => {
+        const result = await addProduct(product);
+        await getAllProducts()
+        return result.msg;
+    }
+
     return (
-        <ProductContext.Provider value={{ products, fetchProducts: getAllProducts }}>
+        <ProductContext.Provider value={{
+            products,
+            fetchProducts: getAllProducts,
+            addNewProduct
+        }}>
             {children}
         </ProductContext.Provider>
     )

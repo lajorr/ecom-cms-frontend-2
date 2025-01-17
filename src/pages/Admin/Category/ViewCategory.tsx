@@ -1,4 +1,3 @@
-import { useEffect } from "react"
 import Breadcrumb from "../../../components/Breadcrumbs/Breadcrumb"
 import CategoryItemTable from "../../../components/Tables/admin/CategoryItemTable"
 import { useCategoryContext } from "../../../provider/CategoryProvider"
@@ -7,10 +6,6 @@ import { Category } from "../../../types/category"
 const ViewCategory = () => {
 
     const catCtx = useCategoryContext();
-
-    useEffect(() => {
-        catCtx.fetchCategories();
-    }, [])
 
     const categoryList: Category[] = catCtx.categories;
 
