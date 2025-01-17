@@ -1,4 +1,8 @@
-import { Product } from "../../../types/product"
+import { Product } from "../../../types/product";
+import CheckboxTwo from "../../Checkboxes/CheckboxTwo";
+
+
+import { IoEnterOutline } from "react-icons/io5";
 
 
 type ProductItemTableProps = {
@@ -14,7 +18,7 @@ const ProductItemTable = ({ columnList, itemData }: ProductItemTableProps) => {
             </h4>
 
             <div className="flex flex-col">
-                <div className="grid grid-cols-3  rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-9">
+                <div className="grid grid-cols-3  rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-6">
                     {columnList.map((columnName, idx) => (
                         <div key={columnName} className={`p-2.5 xl:p-5 sm:block  ${idx > 2 ? "hidden" : ""}`}>
                             <h5 className="text-sm  font-medium uppercase xsm:text-base">
@@ -26,7 +30,7 @@ const ProductItemTable = ({ columnList, itemData }: ProductItemTableProps) => {
 
                 {itemData.map((product, key) => (
                     <div
-                        className={`grid grid-cols-7 items sm:grid-cols-9  ${key === itemData.length - 1
+                        className={`grid grid-cols-3 items sm:grid-cols-6  ${key === itemData.length - 1
                             ? ''
                             : 'border-b border-stroke dark:border-strokedark'
                             }`}
@@ -41,12 +45,12 @@ const ProductItemTable = ({ columnList, itemData }: ProductItemTableProps) => {
                         </div>
                         <div className="flex items-center p-2.5 xl:p-5">
                             <p className="hidden text-black dark:text-white sm:block">
-                                {product.category}
+                                {product.category.name}
                             </p>
                         </div>
                         <div className="flex items-center p-2.5 xl:p-5">
                             <p className="hidden text-black dark:text-white sm:block">
-                                {product.brand}
+                                {product.brand.name}
                             </p>
                         </div>
                         <div className="flex items-center p-2.5 xl:p-5">
@@ -54,31 +58,21 @@ const ProductItemTable = ({ columnList, itemData }: ProductItemTableProps) => {
                                 {product.price}
                             </p>
                         </div>
-                        <div className="flex items-center p-2.5 xl:p-5">
-                            <p className="hidden text-black dark:text-white sm:block">
-                                {product.offerPrice ?? "-"}
-                            </p>
+
+
+                        <div className="flex items-center  p-2.5 xl:p-5">
+
+                            <CheckboxTwo isChecked={product.is_featured} />
                         </div>
-                        <div className="flex items-center p-2.5 xl:p-5">
-                            <p className="hidden text-black dark:text-white sm:block">
-                                {product.description ?? "-"}
-                            </p>
-                        </div>
-                        <div className="flex items-center p-2.5 xl:p-5">
-                            <p className="hidden text-black dark:text-white sm:block uppercase">
-                                {String(product.isFeatured)}
-                            </p>
-                        </div>
-                        <div className="flex items-center p-2.5 xl:p-5">
-                            <p className="hidden text-black dark:text-white sm:block">
-                                {product.stock}
-                            </p>
-                        </div>
+
                         <div className="flex items-center p-2.5 xl:p-5 ">
                             <a
                                 href={product.image} className="hidden  sm:block w-full break-words text-meta-5">
                                 Image {key}
                             </a>
+                            <button>
+                                <IoEnterOutline className="size-6" />
+                            </button>
                         </div>
                     </div>
                 ))}

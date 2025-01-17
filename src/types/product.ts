@@ -1,3 +1,6 @@
+import { Brand } from "./brand";
+import { Category } from "./category";
+
 export type PRODUCT = {
   image: string;
   name: string;
@@ -8,15 +11,20 @@ export type PRODUCT = {
 };
 
 
-export type Product = {
+export type ProductResponse = {
   _id: string;
   name: string;
   category: string;
   brand: string,
   price: number;
-  offerPrice: number | null;
+  offer_price: number | null;
   description: string | null;
-  isFeatured: boolean,
+  is_featured: boolean,
   stock: number;
   image: string;
+}
+
+export type Product = Omit<ProductResponse, 'brand' | 'category'> & {
+  brand: Brand,
+  category: Category
 }

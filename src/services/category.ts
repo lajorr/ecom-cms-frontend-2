@@ -10,6 +10,11 @@ export const addCategory = async (data: Omit<Category, '_id'>) => {
     return response.data;
 }
 
+export const getCategoryById = async (id: string) => {
+    const response = await api().get<Category>(`categories/${id}`)
+    return response.data;
+}
+
 export const deleteCategoryById = async (id: string) => {
     const response = await api().delete(`categories/${id}`)
     return response.data;

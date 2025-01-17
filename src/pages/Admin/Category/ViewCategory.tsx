@@ -13,7 +13,6 @@ const ViewCategory = () => {
     }, [])
 
     const categoryList: Category[] = catCtx.categories;
-    console.log(categoryList)
 
 
     return (

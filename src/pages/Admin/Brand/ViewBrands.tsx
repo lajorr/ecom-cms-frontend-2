@@ -13,7 +13,6 @@ const ViewBrands = () => {
 
 
     const brandList: Brand[] = brandCtx.allBrands;
-    console.log(brandList);
 
 
 

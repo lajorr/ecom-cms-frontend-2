@@ -1,10 +1,14 @@
-import { useState } from 'react';
 
-const CheckboxTwo = () => {
-  const [isChecked, setIsChecked] = useState<boolean>(false);
+type CheckboxTwoProps = {
+  isChecked: boolean;
+  setIsChecked?: (isChecked: boolean) => void;
+  text?: string
+};
+
+const CheckboxTwo = ({ isChecked, setIsChecked, text }: CheckboxTwoProps) => {
 
   return (
-    <div>
+    <div >
       <label
         htmlFor="checkboxLabelTwo"
         className="flex cursor-pointer select-none items-center"
@@ -15,13 +19,12 @@ const CheckboxTwo = () => {
             id="checkboxLabelTwo"
             className="sr-only"
             onChange={() => {
-              setIsChecked(!isChecked);
+              setIsChecked ? setIsChecked(!isChecked) : null;
             }}
           />
           <div
-            className={`mr-4 flex h-5 w-5 items-center justify-center rounded border ${
-              isChecked && 'border-primary bg-gray dark:bg-transparent'
-            }`}
+            className={`mr-4 flex h-5 w-5 items-center justify-center rounded border ${isChecked && 'border-primary bg-gray dark:bg-transparent'
+              }`}
           >
             <span className={`opacity-0 ${isChecked && '!opacity-100'}`}>
               <svg
@@ -41,7 +44,7 @@ const CheckboxTwo = () => {
             </span>
           </div>
         </div>
-        Checkbox Text
+        {text}
       </label>
     </div>
   );
