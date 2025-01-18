@@ -2,7 +2,6 @@ import { Brand } from "../types/brand";
 import { api } from "../utils/Api";
 
 export const fetchAllBrands = async () => {
-
     const response = await api().get<Brand[]>('brands')
     return response.data;
 }

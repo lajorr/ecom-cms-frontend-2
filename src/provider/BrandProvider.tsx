@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { addBrand, deleteBrandById, fetchAllBrands } from "../services/brand";
+import { addBrand, deleteBrandById, fetchAllBrands, updateBrandById } from "../services/brand";
 import { Brand } from "../types/brand";
 
 type BrandState = {
@@ -7,6 +7,7 @@ type BrandState = {
     fetchBrands: () => void,
     addBrand: (arg0: Omit<Brand, '_id'>) => Promise<string>,
     deleteBrand: (id: string) => void
+    updateBrand: (id: string, data: Omit<Brand, '_id'>) => Promise<string>
 }
 
 
@@ -30,13 +31,19 @@ export const BrandProvider = ({ children }: { children: React.ReactNode }) => {
         await getAllBrands()
         return result.msg;
     }
+    const updateBrand = async (id: string, data: Omit<Brand, '_id'>) => {
+        const result = await updateBrandById(id, data);
+        await getAllBrands()
+        return result.msg;
+    }
 
     return (
         <brandContext.Provider value={{
             allBrands,
             fetchBrands: getAllBrands,
             addBrand: addNewBrand,
-            deleteBrand
+            deleteBrand,
+            updateBrand
         }}>
             {children}
         </brandContext.Provider>

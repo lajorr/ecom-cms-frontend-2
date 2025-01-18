@@ -21,9 +21,7 @@ const CategoryItemTable = ({ columnList, itemData, onDelete, onEdit }: CategoryI
         const form = e.currentTarget
         const formData = new FormData(form);
         const catName = formData.get('catName') as string;
-        // const result = await catCtx.addCategory({ name: catName });
-        // form.reset()
-        // alert(result)
+
         onEdit({ name: catName }, selectedCategory?._id as string)
         setShowModal(false);
     }

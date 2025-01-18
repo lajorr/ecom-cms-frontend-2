@@ -17,6 +17,7 @@ type EditModalProps = {
         bool: boolean
     ) => void,
     handleCategorySubmit?: (e: FormEvent<HTMLFormElement>) => void
+    handleBrandSubmit?: (e: FormEvent<HTMLFormElement>) => void
     selectedProduct?: Product | null,
     selectedCategory?: Category | null
     selectedBrand?: Category | null
@@ -27,6 +28,7 @@ const EditModal = ({
     slug,
     handleProductSubmit,
     handleCategorySubmit,
+    handleBrandSubmit,
     selectedProduct,
     selectedCategory,
     selectedBrand
@@ -56,7 +58,7 @@ const EditModal = ({
                     >
                         <HiOutlineXMark className="text-xl font-bold" />
                     </button>
-                    <span className="text-2xl font-bold">Add new {slug}</span>
+                    <span className="text-2xl font-bold">Edit {slug}</span>
                 </div>
                 {slug === 'product' && (
                     <form onSubmit={(e) => handleProductSubmit?.(e, enabled)}>
@@ -169,7 +171,7 @@ const EditModal = ({
                             </div>
 
                             <button className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
-                                Add Product
+                                Edit Product
                             </button>
                         </div>
                     </form>
@@ -189,7 +191,27 @@ const EditModal = ({
                                 className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                             />
                             <button className="mt-6 flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
-                                Add Category
+                                Edit Category
+                            </button>
+                        </div>
+                    </form>
+                )}
+                {slug === 'brand' && (
+
+                    <form onSubmit={handleBrandSubmit}>
+                        <div className="p-6.5">
+                            <label className="mb-2.5 block text-black dark:text-white">
+                                Name <span className="text-meta-1">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                name="brandName"
+                                defaultValue={selectedBrand?.name || ''}
+                                placeholder="Enter category name"
+                                className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                            />
+                            <button className="mt-6 flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
+                                Edit Brand
                             </button>
                         </div>
                     </form>
