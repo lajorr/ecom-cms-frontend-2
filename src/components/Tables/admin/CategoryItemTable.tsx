@@ -1,14 +1,32 @@
+import { useState } from "react";
 import { IoEnterOutline } from "react-icons/io5";
 import { MdDeleteOutline, MdModeEdit } from "react-icons/md";
 import { Category } from "../../../types/category";
+import EditModal from "../../Modal/EditModal";
 type CategoryItemTableProps = {
-    columnList: string[],
+    columnList: string[]
     itemData: Category[]
     onDelete: (id: string) => void
+    onEdit: (category: Omit<Category, '_id'>, id: string) => void
 }
 
 
-const CategoryItemTable = ({ columnList, itemData, onDelete }: CategoryItemTableProps) => {
+const CategoryItemTable = ({ columnList, itemData, onDelete, onEdit }: CategoryItemTableProps) => {
+
+    const [showModal, setShowModal] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
+
+    const handleOnCategorySubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const form = e.currentTarget
+        const formData = new FormData(form);
+        const catName = formData.get('catName') as string;
+        // const result = await catCtx.addCategory({ name: catName });
+        // form.reset()
+        // alert(result)
+        onEdit({ name: catName }, selectedCategory?._id as string)
+        setShowModal(false);
+    }
     return (
         <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
             <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">
@@ -51,7 +69,7 @@ const CategoryItemTable = ({ columnList, itemData, onDelete }: CategoryItemTable
                             <button>
                                 <IoEnterOutline className="size-6" />
                             </button>
-                            <button>
+                            <button onClick={() => { setShowModal(true); setSelectedCategory(cat) }}>
                                 <MdModeEdit className="size-6" />
                             </button>
                             <button onClick={() => onDelete(cat._id)}>
@@ -61,6 +79,17 @@ const CategoryItemTable = ({ columnList, itemData, onDelete }: CategoryItemTable
                     </div>
                 ))}
             </div>
+
+            {showModal && (
+
+                <EditModal showModal={showModal}
+                    setShowModal={setShowModal}
+                    slug='category'
+                    handleCategorySubmit={handleOnCategorySubmit}
+                    selectedCategory={selectedCategory}
+
+                />
+            )}
         </div>
     )
 }

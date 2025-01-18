@@ -13,7 +13,6 @@ const ViewProducts = () => {
         alert(result)
     }
     const handleEdit = async (product: Omit<ProductResponse, '_id'>, id: string) => {
-        console.log("view product  " + product)
         const result = await prodCtx.updateProduct(id, product)
         alert(result)
     }

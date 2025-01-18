@@ -2,6 +2,7 @@ import { FormEvent, useEffect, useState } from "react";
 import { HiOutlineXMark } from "react-icons/hi2";
 import { useBrandContext } from "../../provider/BrandProvider";
 import { useCategoryContext } from "../../provider/CategoryProvider";
+import { Category } from "../../types/category";
 import { Product } from "../../types/product";
 import SelectGroupOne from "../Forms/SelectGroup/SelectGroupOne";
 import MySwitcher from "../Switchers/MySwitcher";
@@ -11,26 +12,31 @@ type EditModalProps = {
     showModal: boolean,
     setShowModal: (arg: boolean) => void,
     slug: string,
-    handleProductSubmit: (e:
+    handleProductSubmit?: (e:
         FormEvent<HTMLFormElement>,
         bool: boolean
     ) => void,
-    product: Product | null
-
+    handleCategorySubmit?: (e: FormEvent<HTMLFormElement>) => void
+    selectedProduct?: Product | null,
+    selectedCategory?: Category | null
+    selectedBrand?: Category | null
 }
 const EditModal = ({
     showModal,
     setShowModal,
     slug,
-    handleProductSubmit: handleProductSubmit,
-    product,
+    handleProductSubmit,
+    handleCategorySubmit,
+    selectedProduct,
+    selectedCategory,
+    selectedBrand
 }: EditModalProps) => {
     const [enabled, setEnabled] = useState<boolean>(false);
 
     const brands = useBrandContext().allBrands;
     const categories = useCategoryContext().categories;
     useEffect(() => {
-        setEnabled(product?.is_featured || false);
+        setEnabled(selectedProduct?.is_featured || false);
     }, [])
 
     return (
@@ -53,7 +59,7 @@ const EditModal = ({
                     <span className="text-2xl font-bold">Add new {slug}</span>
                 </div>
                 {slug === 'product' && (
-                    <form onSubmit={(e) => handleProductSubmit(e, enabled)}>
+                    <form onSubmit={(e) => handleProductSubmit?.(e, enabled)}>
                         <div className="p-6.5">
                             <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
                                 <div className="w-full xl:w-1/2">
@@ -63,7 +69,7 @@ const EditModal = ({
                                     <input
                                         type="text"
                                         name="name"
-                                        defaultValue={product?.name || ''}
+                                        defaultValue={selectedProduct?.name || ''}
                                         required
                                         placeholder="Enter product name"
                                         className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
@@ -83,7 +89,7 @@ const EditModal = ({
                                             required
                                             placeholder="123"
                                             name="price"
-                                            defaultValue={product?.price.slice(1) || '0'}
+                                            defaultValue={selectedProduct?.price.slice(1) || '0'}
                                             className="appearance-none w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 pl-9 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                                         />
                                     </div>
@@ -103,7 +109,7 @@ const EditModal = ({
 
                                             placeholder="123"
                                             name="offerPrice"
-                                            defaultValue={product?.offer_price?.slice(1) || ''}
+                                            defaultValue={selectedProduct?.offer_price?.slice(1) || ''}
                                             className="appearance-none w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 pl-9 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                                         />
                                     </div>
@@ -118,14 +124,14 @@ const EditModal = ({
                                         type="number"
                                         name="stock"
                                         placeholder="123"
-                                        defaultValue={product?.stock || ''}
+                                        defaultValue={selectedProduct?.stock || ''}
                                         className="appearance-none w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                                     />
                                 </div>
                             </div>
                             <div className=" flex flex-col gap-6 xl:flex-row">
-                                <SelectGroupOne labelText="Brand" hintText="Select Brand" fieldName="brandId" brands={brands} selectedBrand={product?.brand} />
-                                <SelectGroupOne labelText="Category" hintText="Select Category" fieldName="categoryId" categories={categories} selectedCategory={product?.category} />
+                                <SelectGroupOne labelText="Brand" hintText="Select Brand" fieldName="brandId" brands={brands} selectedBrand={selectedProduct?.brand} />
+                                <SelectGroupOne labelText="Category" hintText="Select Category" fieldName="categoryId" categories={categories} selectedCategory={selectedProduct?.category} />
                             </div>
                             <div className=" flex flex-col  gap-6 xl:flex-row">
 
@@ -138,7 +144,7 @@ const EditModal = ({
                                         required
                                         placeholder="asdasd"
                                         name="image"
-                                        defaultValue={product?.image || ''}
+                                        defaultValue={selectedProduct?.image || ''}
                                         className="appearance-none w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5  text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                                     />
                                 </div>
@@ -157,13 +163,33 @@ const EditModal = ({
                                     name="description"
                                     rows={6}
                                     placeholder="Type your message"
-                                    defaultValue={product?.description || ''}
+                                    defaultValue={selectedProduct?.description || ''}
                                     className="resize-none w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                                 ></textarea>
                             </div>
 
                             <button className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
                                 Add Product
+                            </button>
+                        </div>
+                    </form>
+                )}
+                {slug === 'category' && (
+
+                    <form onSubmit={handleCategorySubmit}>
+                        <div className="p-6.5">
+                            <label className="mb-2.5 block text-black dark:text-white">
+                                Name <span className="text-meta-1">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                name="catName"
+                                defaultValue={selectedCategory?.name || ''}
+                                placeholder="Enter category name"
+                                className="w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                            />
+                            <button className="mt-6 flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
+                                Add Category
                             </button>
                         </div>
                     </form>

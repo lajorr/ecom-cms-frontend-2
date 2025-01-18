@@ -21,6 +21,7 @@ export const deleteCategoryById = async (id: string) => {
 }
 
 export const updateCategoryById = async (id: string, data: Omit<Category, '_id'>) => {
+    console.log(data)
     const response = await api().patch(`categories/${id}`, data)
     return response.data;
 }

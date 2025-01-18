@@ -44,7 +44,6 @@ const ProductItemTable = ({ columnList, itemData, onDelete, onEdit }: ProductIte
             image: image,
         }
 
-        console.log(newProduct)
 
         if (selectedProduct) {
             onEdit(newProduct, selectedProduct._id);
@@ -134,7 +133,7 @@ const ProductItemTable = ({ columnList, itemData, onDelete, onEdit }: ProductIte
                     setShowModal={setShowModal}
                     slug='product'
                     handleProductSubmit={handleOnProductSubmit}
-                    product={selectedProduct}
+                    selectedProduct={selectedProduct}
 
                 />
             )}
