@@ -1,12 +1,14 @@
-import { Category } from "../../../types/category"
-
+import { IoEnterOutline } from "react-icons/io5";
+import { MdDeleteOutline, MdModeEdit } from "react-icons/md";
+import { Category } from "../../../types/category";
 type CategoryItemTableProps = {
     columnList: string[],
     itemData: Category[]
+    onDelete: (id: string) => void
 }
 
 
-const CategoryItemTable = ({ columnList, itemData }: CategoryItemTableProps) => {
+const CategoryItemTable = ({ columnList, itemData, onDelete }: CategoryItemTableProps) => {
     return (
         <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
             <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">
@@ -15,8 +17,8 @@ const CategoryItemTable = ({ columnList, itemData }: CategoryItemTableProps) => 
 
             <div className="flex flex-col">
                 <div className="grid grid-cols-2 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-4">
-                    {columnList.map((columnName) => (
-                        <div key={columnName} className="p-2.5 xl:p-5">
+                    {columnList.map((columnName, idx) => (
+                        <div key={columnName} className={`p-2.5 xl:p-5 sm:block ${idx > 1 ? "hidden" : ""}`}>
                             <h5 className="text-sm  font-medium uppercase xsm:text-base">
                                 {columnName}
                             </h5>
@@ -43,6 +45,18 @@ const CategoryItemTable = ({ columnList, itemData }: CategoryItemTableProps) => 
                             <p className="text-black dark:text-white sm:block">
                                 {cat.name}
                             </p>
+                        </div>
+                        <div className="flex gap-3 items-center p-2.5 xl:p-5 ">
+
+                            <button>
+                                <IoEnterOutline className="size-6" />
+                            </button>
+                            <button>
+                                <MdModeEdit className="size-6" />
+                            </button>
+                            <button onClick={() => onDelete(cat._id)}>
+                                <MdDeleteOutline className="size-6" />
+                            </button>
                         </div>
                     </div>
                 ))}

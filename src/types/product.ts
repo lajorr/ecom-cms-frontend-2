@@ -25,6 +25,6 @@ export type ProductResponse = {
 }
 
 export type Product = Omit<ProductResponse, 'brand' | 'category'> & {
-  brand: Brand,
-  category: Category
+  brand?: Brand,
+  category?: Category
 }

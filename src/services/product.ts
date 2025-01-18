@@ -17,7 +17,7 @@ export const getProductById = async (id: string) => {
 }
 
 export const deleteProductById = async (id: string) => {
-    const response = await api().delete(`products / ${id} `)
+    const response = await api().delete(`products/${id}`)
     return response.data;
 }
 

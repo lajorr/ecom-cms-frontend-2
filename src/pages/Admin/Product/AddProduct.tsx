@@ -17,7 +17,7 @@ const AddProductPage = () => {
 
 
 
-    const handleOnBrandSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleOnProductSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const form = e.currentTarget
         const formData = new FormData(form);
@@ -59,7 +59,7 @@ const AddProductPage = () => {
                                 Product Form
                             </h3>
                         </div>
-                        <form onSubmit={handleOnBrandSubmit}>
+                        <form onSubmit={handleOnProductSubmit}>
                             <div className="p-6.5">
                                 <div className="mb-4.5 flex flex-col gap-6 xl:flex-row">
                                     <div className="w-full xl:w-1/2">

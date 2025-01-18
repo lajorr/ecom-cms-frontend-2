@@ -1,16 +1,57 @@
-import { Product } from "../../../types/product";
-import CheckboxTwo from "../../Checkboxes/CheckboxTwo";
-
-
+import { useState } from "react";
 import { IoEnterOutline } from "react-icons/io5";
+import { MdDeleteOutline, MdModeEdit } from "react-icons/md";
+import { Product, ProductResponse } from "../../../types/product";
+import CheckboxTwo from "../../Checkboxes/CheckboxTwo";
+import EditModal from "../../Modal/EditModal";
 
 
 type ProductItemTableProps = {
     columnList: string[],
-    itemData: Product[]
+    itemData: Product[],
+    onDelete: (id: string) => void
 }
 
-const ProductItemTable = ({ columnList, itemData }: ProductItemTableProps) => {
+const ProductItemTable = ({ columnList, itemData, onDelete, }: ProductItemTableProps) => {
+    const [showModal, setShowModal] = useState(false);
+    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+
+    const handleOnProductSubmit = async (e: React.FormEvent<HTMLFormElement>, isFeatured: boolean) => {
+        e.preventDefault();
+        const form = e.currentTarget
+        const formData = new FormData(form);
+
+        const name = formData.get('name') as string;
+        const price = '$' + formData.get('price');
+        const offer_price = '$' + formData.get('offerPrice');
+        const brandId = formData.get('brandId') as string;
+        const categoryId = formData.get('categoryId') as string;
+        const description = formData.get('description') as string;
+        const stock = Number(formData.get('stock'));
+        const is_featured = isFeatured;
+        const image = formData.get('image') as string;
+
+        const newProduct: Omit<ProductResponse, '_id'> = {
+            name,
+            price,
+            offer_price,
+            brand: brandId,
+            category: categoryId,
+            description,
+            stock,
+            is_featured,
+            image: image,
+        }
+
+        console.log(newProduct)
+
+        // const result = await prodCtx.addNewProduct(newProduct);
+        // alert(result)
+        form.reset()
+        setShowModal(false);
+    }
+
+
     return (
         <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
             <h4 className="mb-6 text-xl font-semibold text-black dark:text-white">
@@ -45,12 +86,12 @@ const ProductItemTable = ({ columnList, itemData }: ProductItemTableProps) => {
                         </div>
                         <div className="flex items-center p-2.5 xl:p-5">
                             <p className="hidden text-black dark:text-white sm:block">
-                                {product.category.name}
+                                {product.category?.name ?? "category delete"}
                             </p>
                         </div>
                         <div className="flex items-center p-2.5 xl:p-5">
                             <p className="hidden text-black dark:text-white sm:block">
-                                {product.brand.name}
+                                {product.brand?.name ?? "brand deletedF"}
                             </p>
                         </div>
                         <div className="flex items-center p-2.5 xl:p-5">
@@ -59,24 +100,38 @@ const ProductItemTable = ({ columnList, itemData }: ProductItemTableProps) => {
                             </p>
                         </div>
 
-
                         <div className="flex items-center  p-2.5 xl:p-5">
 
                             <CheckboxTwo isChecked={product.is_featured} />
                         </div>
 
-                        <div className="flex items-center p-2.5 xl:p-5 ">
-                            <a
-                                href={product.image} className="hidden  sm:block w-full break-words text-meta-5">
-                                Image {key}
-                            </a>
+                        <div className="flex gap-3 items-center p-2.5 xl:p-5 ">
+
                             <button>
                                 <IoEnterOutline className="size-6" />
+                            </button>
+                            <button onClick={() => {
+                                setSelectedProduct(product)
+                                setShowModal(true)
+                            }}>
+                                <MdModeEdit className="size-6" />
+                            </button>
+                            <button onClick={() => onDelete(product._id)}>
+                                <MdDeleteOutline className="size-6" />
                             </button>
                         </div>
                     </div>
                 ))}
             </div>
+            {showModal && (
+
+                <EditModal showModal={showModal}
+                    setShowModal={setShowModal}
+                    slug='product'
+                    handleProductSubmit={handleOnProductSubmit}
+                    product={selectedProduct}
+                />
+            )}
         </div>
     )
 }

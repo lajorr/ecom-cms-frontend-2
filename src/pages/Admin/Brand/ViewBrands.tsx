@@ -6,10 +6,12 @@ import { Brand } from "../../../types/brand"
 const ViewBrands = () => {
 
     const brandCtx = useBrandContext();
-
-
     const brandList: Brand[] = brandCtx.allBrands;
 
+    const handleDelete = (id: string) => {
+        const result = brandCtx.deleteBrand(id);
+        alert(result)
+    }
 
 
     return (
@@ -17,7 +19,7 @@ const ViewBrands = () => {
             <Breadcrumb pageName="All Brands" />
             <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
 
-                <BrandItemTable columnList={['_id', 'Name']} itemData={brandList} />
+                <BrandItemTable columnList={['_id', 'Name', 'Action']} itemData={brandList} onDelete={handleDelete} />
             </div >
 
         </>

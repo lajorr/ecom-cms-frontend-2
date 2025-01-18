@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { addCategory, fetchAllCategories } from "../services/category";
+import { addCategory, deleteCategoryById, fetchAllCategories } from "../services/category";
 import { Category } from "../types/category";
 
 
@@ -7,6 +7,7 @@ type CategoryState = {
     categories: Category[]
     fetchCategories: () => void
     addCategory: (cat: Omit<Category, '_id'>) => Promise<string>
+    deleteCategory: (id: string) => void
 }
 
 
@@ -25,12 +26,19 @@ export const CategoryProvider = ({ children }: { children: React.ReactNode }) =>
         await getAllCategories()
         return result.msg;
     }
+    const deleteCategory = async (id: string) => {
+        const result = await deleteCategoryById(id);
+        await getAllCategories()
+        return result.msg;
+    }
 
     return (
         <CategoryContext.Provider value={{
             categories,
             fetchCategories: getAllCategories,
-            addCategory: addNewCategory
+            addCategory: addNewCategory,
+            deleteCategory
+
         }}>
             {children}
         </CategoryContext.Provider >
