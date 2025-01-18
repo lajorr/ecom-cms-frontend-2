@@ -1,6 +1,9 @@
 import { FormEvent, useEffect, useState } from "react";
 import { HiOutlineXMark } from "react-icons/hi2";
+import { useBrandContext } from "../../provider/BrandProvider";
+import { useCategoryContext } from "../../provider/CategoryProvider";
 import { Product } from "../../types/product";
+import SelectGroupOne from "../Forms/SelectGroup/SelectGroupOne";
 import MySwitcher from "../Switchers/MySwitcher";
 
 
@@ -13,12 +16,23 @@ type EditModalProps = {
         bool: boolean
     ) => void,
     product: Product | null
+
 }
-const EditModal = ({ showModal, setShowModal, slug, handleProductSubmit: handleProductSubmit, product = null }: EditModalProps) => {
+const EditModal = ({
+    showModal,
+    setShowModal,
+    slug,
+    handleProductSubmit: handleProductSubmit,
+    product,
+}: EditModalProps) => {
     const [enabled, setEnabled] = useState<boolean>(false);
+
+    const brands = useBrandContext().allBrands;
+    const categories = useCategoryContext().categories;
     useEffect(() => {
         setEnabled(product?.is_featured || false);
     }, [])
+
     return (
         <div className="w-screen h-screen fixed top-0 left-0 flex justify-center items-center bg-black/75 z-[99]">
             <div
@@ -69,7 +83,7 @@ const EditModal = ({ showModal, setShowModal, slug, handleProductSubmit: handleP
                                             required
                                             placeholder="123"
                                             name="price"
-                                            defaultValue={product?.price || ''}
+                                            defaultValue={product?.price.slice(1) || '0'}
                                             className="appearance-none w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 pl-9 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                                         />
                                     </div>
@@ -86,10 +100,10 @@ const EditModal = ({ showModal, setShowModal, slug, handleProductSubmit: handleP
                                         </span>
                                         <input
                                             type="number"
-                                            required
+
                                             placeholder="123"
                                             name="offerPrice"
-                                            defaultValue={product?.offer_price || ''}
+                                            defaultValue={product?.offer_price?.slice(1) || ''}
                                             className="appearance-none w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 pl-9 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                                         />
                                     </div>
@@ -109,10 +123,10 @@ const EditModal = ({ showModal, setShowModal, slug, handleProductSubmit: handleP
                                     />
                                 </div>
                             </div>
-                            {/* <div className=" flex flex-col gap-6 xl:flex-row">
-                                    <SelectGroupOne labelText="Brand" hintText="Select Brand" fieldName="brandId" options={brands} />
-                                    <SelectGroupOne labelText="Category" hintText="Select Category" fieldName="categoryId" options={categories} />
-                                </div> */}
+                            <div className=" flex flex-col gap-6 xl:flex-row">
+                                <SelectGroupOne labelText="Brand" hintText="Select Brand" fieldName="brandId" brands={brands} selectedBrand={product?.brand} />
+                                <SelectGroupOne labelText="Category" hintText="Select Category" fieldName="categoryId" categories={categories} selectedCategory={product?.category} />
+                            </div>
                             <div className=" flex flex-col  gap-6 xl:flex-row">
 
                                 <div className="w-full xl:w-1/2">

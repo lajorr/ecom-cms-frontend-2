@@ -7,10 +7,20 @@ type SelectGroupOneProps = {
   labelText?: string;
   hintText?: string;
   fieldName?: string;
-  options: Brand[] | Category[]
+  brands?: Brand[] | null;
+  categories?: Category[] | null;
+  selectedBrand?: Brand | null;
+  selectedCategory?: Category | null;
 }
 
-const SelectGroupOne = ({ labelText, hintText, fieldName, options }: SelectGroupOneProps) => {
+const SelectGroupOne = ({ labelText,
+  hintText,
+  fieldName,
+  brands,
+  categories,
+  selectedBrand,
+  selectedCategory
+}: SelectGroupOneProps) => {
   const [isOptionSelected, setIsOptionSelected] = useState<boolean>(false);
 
   const changeTextColor = () => {
@@ -26,8 +36,7 @@ const SelectGroupOne = ({ labelText, hintText, fieldName, options }: SelectGroup
       <div className="relative z-20 bg-transparent dark:bg-form-input">
         <select
           name={fieldName}
-          // value={selectedOption}
-          defaultValue=""
+          defaultValue={selectedBrand ? selectedBrand._id : selectedCategory ? selectedCategory._id : ''}
           required
           onChange={changeTextColor}
           className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary ${isOptionSelected ? 'text-black dark:text-white' : ''
@@ -36,18 +45,18 @@ const SelectGroupOne = ({ labelText, hintText, fieldName, options }: SelectGroup
           <option value="" disabled className="text-body dark:text-bodydark">
             {hintText ?? "Select Subject"}
           </option>
-          {options.map((option) => (
-
-            <option key={option._id} value={option._id} className="text-body dark:text-bodydark">
-              {option.name}
+          {brands && brands.map((brand) => (
+            <option key={brand._id} value={brand._id} className="text-body dark:text-bodydark">
+              {brand.name}
             </option>
           ))}
-          {/* <option value="UK" className="text-body dark:text-bodydark">
-            UK
-          </option>
-          <option value="Canada" className="text-body dark:text-bodydark">
-            Canada
-          </option> */}
+          {categories && categories.map((cat) => (
+
+            <option key={cat._id} value={cat._id} className="text-body dark:text-bodydark">
+              {cat.name}
+            </option>
+          ))}
+
         </select>
 
         <span className="absolute top-1/2 right-4 z-30 -translate-y-1/2">

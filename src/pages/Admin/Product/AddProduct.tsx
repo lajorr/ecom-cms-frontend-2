@@ -126,8 +126,8 @@ const AddProductPage = () => {
                                     </div>
                                 </div>
                                 <div className=" flex flex-col gap-6 xl:flex-row">
-                                    <SelectGroupOne labelText="Brand" hintText="Select Brand" fieldName="brandId" options={brands} />
-                                    <SelectGroupOne labelText="Category" hintText="Select Category" fieldName="categoryId" options={categories} />
+                                    <SelectGroupOne labelText="Brand" hintText="Select Brand" fieldName="brandId" brands={brands} />
+                                    <SelectGroupOne labelText="Category" hintText="Select Category" fieldName="categoryId" categories={categories} />
                                 </div>
                                 <div className=" flex flex-col  gap-6 xl:flex-row">
 

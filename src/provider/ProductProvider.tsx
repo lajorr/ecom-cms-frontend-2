@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import { getBrandById } from "../services/brand";
 import { getCategoryById } from "../services/category";
-import { addProduct, deleteProductById, fetchAllProducts } from "../services/product";
+import { addProduct, deleteProductById, fetchAllProducts, updateProductById } from "../services/product";
 import { Product, ProductResponse } from "../types/product";
 
 type ProductState = {
@@ -9,6 +9,7 @@ type ProductState = {
     fetchProducts: () => void
     addNewProduct: (data: Omit<ProductResponse, '_id'>) => Promise<string>
     deleteProduct: (id: string) => Promise<string>
+    updateProduct: (id: string, data: Omit<ProductResponse, '_id'>) => Promise<string>
 }
 
 const ProductContext = createContext<ProductState | undefined>(undefined);
@@ -45,12 +46,19 @@ export const ProductProvider = ({ children }: { children: React.ReactNode }) => 
         return result.msg;
     }
 
+    const updateProduct = async (id: string, product: Omit<ProductResponse, '_id'>) => {
+        const result = await updateProductById(id, product);
+        await getAllProducts()
+        return result.msg;
+    }
+
     return (
         <ProductContext.Provider value={{
             products,
             fetchProducts: getAllProducts,
             addNewProduct,
-            deleteProduct
+            deleteProduct,
+            updateProduct
         }}>
             {children}
         </ProductContext.Provider>

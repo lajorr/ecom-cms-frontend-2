@@ -1,4 +1,4 @@
-import { Product, ProductResponse } from "../types/product";
+import { ProductResponse } from "../types/product";
 import { api } from "../utils/Api";
 
 export const fetchAllProducts = async () => {
@@ -21,7 +21,7 @@ export const deleteProductById = async (id: string) => {
     return response.data;
 }
 
-export const updateProductById = async (id: string, data: Omit<Product, '_id'>) => {
-    const response = await api().patch(`products / ${id} `, data)
+export const updateProductById = async (id: string, data: Omit<ProductResponse, '_id'>) => {
+    const response = await api().patch(`products/${id}`, data)
     return response.data;
 }

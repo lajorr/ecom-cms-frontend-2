@@ -9,10 +9,11 @@ import EditModal from "../../Modal/EditModal";
 type ProductItemTableProps = {
     columnList: string[],
     itemData: Product[],
-    onDelete: (id: string) => void
+    onDelete: (id: string) => void,
+    onEdit: (product: Omit<ProductResponse, '_id'>, id: string) => void
 }
 
-const ProductItemTable = ({ columnList, itemData, onDelete, }: ProductItemTableProps) => {
+const ProductItemTable = ({ columnList, itemData, onDelete, onEdit }: ProductItemTableProps) => {
     const [showModal, setShowModal] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
@@ -45,8 +46,12 @@ const ProductItemTable = ({ columnList, itemData, onDelete, }: ProductItemTableP
 
         console.log(newProduct)
 
-        // const result = await prodCtx.addNewProduct(newProduct);
-        // alert(result)
+        if (selectedProduct) {
+            onEdit(newProduct, selectedProduct._id);
+        }
+        else {
+            alert("No product selected")
+        }
         form.reset()
         setShowModal(false);
     }
@@ -130,6 +135,7 @@ const ProductItemTable = ({ columnList, itemData, onDelete, }: ProductItemTableP
                     slug='product'
                     handleProductSubmit={handleOnProductSubmit}
                     product={selectedProduct}
+
                 />
             )}
         </div>
