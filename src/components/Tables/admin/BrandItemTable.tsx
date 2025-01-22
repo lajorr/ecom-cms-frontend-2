@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { IoEnterOutline } from "react-icons/io5";
 import { MdDeleteOutline, MdModeEdit } from "react-icons/md";
 import { Brand } from "../../../types/brand";
 import EditModal from "../../Modal/EditModal";
@@ -65,9 +64,7 @@ const BrandItemTable = ({ columnList, itemData, onDelete, onEdit }: BrandItemTab
                         </div>
                         <div className="flex gap-3 items-center p-2.5 xl:p-5 ">
 
-                            <button>
-                                <IoEnterOutline className="size-6" />
-                            </button>
+
                             <button onClick={() => { setSelectedBrand(brand); setShowModal(true) }}>
                                 <MdModeEdit className="size-6" />
                             </button>

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { IoEnterOutline } from "react-icons/io5";
 import { MdDeleteOutline, MdModeEdit } from "react-icons/md";
 import { Category } from "../../../types/category";
 import EditModal from "../../Modal/EditModal";
@@ -64,9 +63,7 @@ const CategoryItemTable = ({ columnList, itemData, onDelete, onEdit }: CategoryI
                         </div>
                         <div className="flex gap-3 items-center p-2.5 xl:p-5 ">
 
-                            <button>
-                                <IoEnterOutline className="size-6" />
-                            </button>
+
                             <button onClick={() => { setShowModal(true); setSelectedCategory(cat) }}>
                                 <MdModeEdit className="size-6" />
                             </button>
