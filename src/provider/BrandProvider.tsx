@@ -16,6 +16,8 @@ const brandContext = createContext<BrandState | undefined>(undefined);
 
 export const BrandProvider = ({ children }: { children: React.ReactNode }) => {
     const [allBrands, setAllBrands] = useState<Brand[]>([]);
+
+    
     const getAllBrands = async () => {
         const allBrands = await fetchAllBrands();
         setAllBrands(allBrands);

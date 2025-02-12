@@ -2,7 +2,6 @@ import { ProductResponse } from "../types/product";
 import { api } from "../utils/Api";
 
 export const fetchAllProducts = async () => {
-
     const response = await api().get<ProductResponse[]>('products')
     return response.data;
 }
